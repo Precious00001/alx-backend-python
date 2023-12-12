@@ -1,25 +1,34 @@
 #!/usr/bin/env python3
-''' Description: Import async_generator from the previous task and then write
-                 a coroutine called async_comprehension
-                 that takes no arguments.
-                 The coroutine uses async comprehension
-                 over async_generator
-                 to collect 10 random numbers,
-                 then returns the list of 10 random
-                 numbers.
+'''
+Description: Import wait_random from the previous python
+            file and write an async routine called wait_n
+            that takes in 2 int arguments (in this order):
+            n and max_delay. You will spawn wait_random n
+            times with the specified max_delay.
+
+            wait_n should return the list of all the
+            delays (float values).
+            The list of the delays should be in ascending
+            order without using sort()
+             because of concurrency.
 '''
 
+import asyncio
 from typing import List
 
-# Import the async_generator coroutine from module '0-async_generator'
-async_generator = __import__('0-async_generator').async_generator
+# Import the wait_random coroutine from the previous file
+wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-async def async_comprehension() -> List[float]:
-    '''Return a list of values yielded by async_generator
-    using async comprehension.
+async def wait_n(n: int, max_delay: int) -> List[float]:
+    '''Spawn wait_random n times with the specified max_delay.
+
+    Parameters:
+    - n (int): The number of times to spawn wait_random.
+    - max_delay (int): The maximum delay for each wait_random call.
 
     Returns:
-    List[float]: A list containing 10 random numbers.
+    List[float]: A list of delays (float values) in ascending order.
     '''
-    return [value async for value in async_generator()]
+    delays = [await wait_random(max_delay) for _ in range(n)]
+    return sorted(delays)
