@@ -1,21 +1,40 @@
 #!/usr/bin/env python3
-from asyncio import gather
+'''
+Description: From the previous file, import wait_n
+                into 2-measure_runtime.py.
+             Create a measure_time function with integers n
+             and max_delay as arguments
+             that measures the total execution time
+             for wait_n(n, max_delay),
+             and returns total_time / n.
+             Your function should return a float.
+             Use the time module to measure an
+             approximate elapsed time.
+'''
+
+import asyncio
+from typing import List
 from time import time
 
-# Import the async_comprehension coroutine from module '1-async_comprehension'
-async_comprehension = __import__('1-async_comprehension').async_comprehension
+# Import the wait_n coroutine from the previous file
+wait_n = __import__('1-concurrent_coroutines').wait_n
 
 
-async def measure_runtime() -> float:
-    '''Measure the runtime of async_comprehension executed 4 times in parallel.
+def measure_time(n: int, max_delay: int) -> float:
+    '''Measure the total execution time for wait_n
+    (n, max_delay) and return total_time / n.
+
+    Parameters:
+    - n (int): The number of times to spawn wait_random.
+    - max_delay (int): The maximum delay for
+    each wait_random call.
 
     Returns:
-    float: The total runtime of executing async_comprehension
-    4 times in parallel.
+    float: The average execution time per call.
     '''
-    first_time = time()
-    await gather(async_comprehension(), async_comprehension(),
-                 async_comprehension(), async_comprehension())
-    next_time = time()
+    start_time = time()
+    asyncio.run(wait_n(n, max_delay))
+    end_time = time()
 
-    return next_time - first_time
+    total_time = end_time - start_time
+    return total_time / n
