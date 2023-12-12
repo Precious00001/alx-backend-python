@@ -1,4 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+''' Task: A coroutine called async_generator that takes no
+                 arguments.
+'''
+
 import asyncio
 import random
 
