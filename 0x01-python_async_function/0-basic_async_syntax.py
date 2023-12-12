@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import asyncio
 import random
 
@@ -9,7 +9,8 @@ async def wait_random(max_delay: int = 10) -> float:
     delay between 0 and max_delay seconds.
 
     Parameters:
-    - max_delay (int): The maximum delay in seconds (default is 10).
+    - max_delay (int): The maximum delay in seconds
+    (default is 10).
 
     Returns:
     - float: The random delay.
@@ -17,3 +18,9 @@ async def wait_random(max_delay: int = 10) -> float:
     delay = random.uniform(0, max_delay)
     await asyncio.sleep(delay)
     return delay
+
+# Example usage
+if __name__ == "__main__":
+    print(asyncio.run(wait_random()))
+    print(asyncio.run(wait_random(5)))
+    print(asyncio.run(wait_random(15)))
